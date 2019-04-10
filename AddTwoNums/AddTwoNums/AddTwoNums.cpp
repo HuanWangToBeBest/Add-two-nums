@@ -3,6 +3,9 @@
 
 #include "stdafx.h"
 #include<iostream>
+#include<stdio.h>
+#include <stdlib.h>  
+#include <malloc.h> 
 using namespace std;
 struct ListNode {
      int val;
@@ -35,44 +38,57 @@ struct ListNode {
         }
 
        if (carry>0)
-
+		   
 	   {node->next=new struct ListNode(carry);}
         return root->next;
     }
+	ListNode* createList(ListNode* pHead,bool flag){
+    ListNode* p = pHead;
+	p->next = NULL;
+	int a[] = {5,6,4};
+	int b[] = {2,4,3};
+    for (int i = 1; i < 3; ++i) {
+        ListNode* pNewNode = new ListNode(0);
+		if(flag)
+	    {
+		   pNewNode->val = a[i]; // 将新节点的值赋值为i
+	    }
+		else
+		{
+			pNewNode->val = b[i]; // 将新节点的值赋值为i
+		}
+        p->next = pNewNode; // 上一个节点指向这个新建立的节点
+		pNewNode->next = NULL;
+        p = pNewNode; // p节点指向这个新的节点
+    }
+	
+	return p;
+	}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	ListNode *p1 = new ListNode(2);
-	ListNode *p2 = new ListNode(4);
-	ListNode *p3 = new ListNode(3);
-	ListNode *q1 = new ListNode(5);
-	ListNode *q2 = new ListNode(6);
-	ListNode *q3 = new ListNode(4);
-	ListNode *l1 = new ListNode(0);
-	ListNode *l2 = new ListNode(0);
-	l1 = p1;
-	l1->next = p2;
-	l1->next->next = p3;
-	cout<<"链表l1："<<endl;
-	while(l1!=NULL)
+	
+    ListNode* head = new ListNode(0);
+    ListNode* tail = new ListNode(0);
+	ListNode* l1 = createList(head,true);
+	cout<<"head："<<endl;
+	while (head!=NULL)
 	{
-		cout<<l1->val<<endl;
-		l1 = l1->next;
+		cout<<head->val<<endl;
+		head = head->next;
 	}
-	l2 = q1;
-	l2->next = q2;
-	l2->next->next = q3;
-	cout<<"链表l2:"<<endl;
-	while (l2!=NULL)
+	ListNode* l2 = createList(tail,false);
+	cout<<"tail："<<endl;
+	while (tail!=NULL)
 	{
-		cout<<l2->val<<endl;
-		l2 = l2->next;
+		cout<<tail->val<<endl;
+		tail = tail->next;
 	}
 	ListNode *res = addTwoNumbers(l1,l2);
 	cout<<"相加后："<<endl;
-	while(res!=NULL)
+	while (res!=NULL)
 	{
-		cout<<res->val<<endl;
+		cout << res->val<<endl;
 		res = res->next;
 	}
 	cin.get();
